@@ -33,6 +33,11 @@ scrape_configs:
     honor_labels: true
     static_configs:
       - targets: ['pushgateway:9091']
+  
+  - job_name: 'triton'
+    scrape_interval: 10s
+    static_configs:
+      - targets: ['localhost:8002/metrics']
 
 
 alerting:
