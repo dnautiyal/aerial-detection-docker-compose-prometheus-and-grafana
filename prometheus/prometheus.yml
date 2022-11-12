@@ -26,7 +26,7 @@ scrape_configs:
   - job_name: 'prometheus'
     scrape_interval: 10s
     static_configs:
-      - targets: ['44.202.141.138:9090']
+      - targets: ['52.205.148.141:9090']
 
 
   - job_name: 'pushgateway'
@@ -38,7 +38,7 @@ scrape_configs:
   - job_name: 'tritonserver'
     scrape_interval: 10s
     static_configs:
-      - targets: ['44.202.141.138:8002']
+      - targets: ['52.205.148.141:8002']
 
 
 alerting:
