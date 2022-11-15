@@ -1,3 +1,11 @@
+
+### Step-0: to start go to ec2 box
+```
+  go to aerial-detection-docker-compose-prometheus-and-grafana directory
+  git pull https://github.com/dnautiyal/aerial-detection-docker-compose-prometheus-and-grafana.git
+  docker-compose up -d
+  docker-compose down
+```
 ### Step-1: Go to /prometheus/ and change prometheus.yaml file by adding the following scrape-config for triton server:
 ```
 job_name: 'tritonserver'
@@ -6,30 +14,31 @@ job_name: 'tritonserver'
       - targets: ['52.205.148.141:8002']
 ```
 ### Step-2: For creating Grafana Screen follow the following steps:
-1. Success request per minute
-    2. Metrics: sum(delta(nv_inference_request_success[1m]))
-    3. Legend : {{model}}
-    4. Panel title: Success request per minute
-    5. Apply
-2. Avg queue time per request
-    1. Metrics: avg(delta(nv_inference_queue_duration_us[1m])/(1+delta(nv_inference_request_success[1m]))/1000)
-    2. Legend : Triton Inference Server
-    3. Panel title: Avg queue time per request(ms)
-    4. Edit Panel > Standard options Decimals > 4
-    5. Apply
-3. GPU Utilization
-    1. Metrics: max by (gpu) (DCGM_FI_PROF_GR_ENGINE_ACTIVE)
-    2. Legend : GPU-{{gpu}}
-    3. Panel title: GPU Utilization
-    4. Visualization : Time series > Gauge
-    5. Apply
-4. Replica number
-    1. Metrics: kube_deployment_status_replicas{deployment="nvidia-tritoninferenceserver",job="gpu-metrics"}
-    2. Legend : {{deployment}}
-    3. Panel title: Replica number
-    4. Edit Panel > Standard options Decimals > 0
-5. Modified dashboard, make it easier to read, and change “time ranges” to “Last 5 minutes” and "refresh time" to "5s" at upper right side of Grafana dashboard.
-6. Save the dashboard and naeme "Triton Inference Server Dashboard".
+
+  1. Success request per minute
+      1. Metrics: sum(delta(nv_inference_request_success[1m]))
+      2. Legend : {{model}}
+      3. Panel title: Success request per minute
+      4. Apply
+  2. Avg queue time per request
+      1. Metrics: avg(delta(nv_inference_queue_duration_us[1m])/(1+delta(nv_inference_request_success[1m]))/1000)
+      2. Legend : Triton Inference Server
+      3. Panel title: Avg queue time per request(ms)
+      4. Edit Panel > Standard options Decimals > 4
+      5. Apply
+  3. GPU Utilization
+      1. Metrics: max by (gpu) (DCGM_FI_PROF_GR_ENGINE_ACTIVE)
+      2. Legend : GPU-{{gpu}}
+      3. Panel title: GPU Utilization
+      4. Visualization : Time series > Gauge
+      5. Apply
+  4. Replica number
+      1. Metrics: kube_deployment_status_replicas{deployment="nvidia-tritoninferenceserver",job="gpu-metrics"}
+      2. Legend : {{deployment}}
+      3. Panel title: Replica number
+      4. Edit Panel > Standard options Decimals > 0
+  5. Modified dashboard, make it easier to read, and change “time ranges” to “Last 5 minutes” and "refresh time" to "5s" at upper right side of Grafana dashboard.
+  6. Save the dashboard and naeme "Triton Inference Server Dashboard".
 
 
 
